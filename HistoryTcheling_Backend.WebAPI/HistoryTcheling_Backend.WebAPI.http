@@ -1,0 +1,6 @@
+@HistoryTcheling_Backend.WebAPI_HostAddress = http://localhost:5165
+
+GET {{HistoryTcheling_Backend.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

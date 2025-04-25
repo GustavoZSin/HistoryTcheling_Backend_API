@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Entities\" />
+    <Folder Include="Persistence\Configuration\" />
+    <Folder Include="Persistence\Context\" />
+    <Folder Include="Persistence\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HistoryTcheling_Backend.Application\HistoryTcheling_Backend.Application.csproj" />
+    <ProjectReference Include="..\HistoryTcheling_Backend.Domain\HistoryTcheling_Backend.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

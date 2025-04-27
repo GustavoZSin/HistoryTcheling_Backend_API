@@ -7,18 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
+    <Compile Remove="Mappers\**" />
+    <Content Remove="Mappers\**" />
+    <EmbeddedResource Remove="Mappers\**" />
+    <None Remove="Mappers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DependencyInjection\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Mappers\" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HistoryTcheling_Backend.Application\HistoryTcheling_Backend.Application.csproj" />
     <ProjectReference Include="..\HistoryTcheling_Backend.Domain\HistoryTcheling_Backend.Domain.csproj" />
+    <ProjectReference Include="..\HistoryTcheling_Backend.Infraestructure\HistoryTcheling_Backend.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>

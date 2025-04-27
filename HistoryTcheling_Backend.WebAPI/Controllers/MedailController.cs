@@ -1,19 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HistoryTcheling_Backend.Domain.Interfaces.UseCases;
+using HistoryTcheling_Backend.WebAPI.DTOs.Request;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HistoryTcheling_Backend.WebAPI.Controllers
 {
     public class MedailController : ControllerBase
     {
-        [HttpGet("UserMedailsFromCity")]
-        public IActionResult GetMedailsFromUser([FromQuery] string idUser, [FromQuery] string city, [FromQuery] bool onlyClaimedMedail = false)
+        private readonly IGetUserMedailsFromCityUseCase _getUserMedailsUseCase;
+        private readonly IAddMedailToUserUseCase _addMedailUseCase;
+
+        public MedailController(IGetUserMedailsFromCityUseCase getUserMedailsUseCase, IAddMedailToUserUseCase addMedailUseCase)
         {
-            return Ok();
+            _getUserMedailsUseCase = getUserMedailsUseCase;
+            _addMedailUseCase = addMedailUseCase;
+        }
+
+        [HttpGet("UserMedailsFromCity")]
+        public async Task<IActionResult> GetMedailsFromUser([FromQuery] GetUserMedailsFromCityRequest request)
+        {
+            var medails = await _getUserMedailsUseCase.ExecuteAsync(request.IdUser, request.CityName, request.OnlyClaimedMedail);
+
+            if (medails == null)
+                return NotFound();
+
+            return Ok(medails);
         }
 
         [HttpPost("AddMedailToUser")]
-        public IActionResult AddMedailToUser([FromBody] string idUser, [FromBody] string idTouristAttraction)
+        public async Task<IActionResult> AddMedailToUser([FromBody] AddMedailRequest request)
         {
-            return Ok();
+            await _addMedailUseCase.ExecuteAsync(request.IdUser, request.IdTouristAttraction);
+            return Created();
         }
     }
 }

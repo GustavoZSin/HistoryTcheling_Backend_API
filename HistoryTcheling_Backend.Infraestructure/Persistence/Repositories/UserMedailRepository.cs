@@ -20,14 +20,16 @@ namespace HistoryTcheling_Backend.Infraestructure.Persistence.Repositories
 
         public async Task<List<MedalBadgeDetails>> GetUserMedailsFromCityAsync(int userId, string cityName, bool onlyClaimedMedail)
         {
-            var detailList = await _context.UserVisitedAttractions
+            var query = _context.UserVisitedAttractions
                     .Include(uva => uva.IdTouristAttractionNavigation)
                         .ThenInclude(ta => ta.Icon)
                     .Include(uva => uva.IdTouristAttractionNavigation)
                         .ThenInclude(ta => ta.Address)
                             .ThenInclude(ad => ad.IdCityNavigation)
                                 .ThenInclude(c => c.IdStateNavigation)
-                                    .ThenInclude(s => s.IdCountryNavigation)
+                                    .ThenInclude(s => s.IdCountryNavigation);
+
+            var detailList = await query
                     .Where(a => a.IdUser == userId
                              && a.IdTouristAttractionNavigation.Address.IdCityNavigation.Name == cityName)
                     .ToListAsync();

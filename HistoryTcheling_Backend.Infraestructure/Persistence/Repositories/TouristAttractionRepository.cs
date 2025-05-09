@@ -21,15 +21,16 @@ namespace HistoryTcheling_Backend.Infraestructure.Persistence.Repositories
 
         public async Task<TouristAttraction> GetTouristAttractionDetailAsync(int id)
         {
-            var touristAttractionModel = await _context.TouristAttractions
+            var query = _context.TouristAttractions
                 .Include(t => t.Category)
                 .Include(t => t.BackgroundImage)
                 .Include(t => t.Icon)
                 .Include(t => t.Address)
                     .ThenInclude(a => a.IdCityNavigation)
                         .ThenInclude(c => c.IdStateNavigation)
-                            .ThenInclude(s => s.IdCountryNavigation)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                            .ThenInclude(s => s.IdCountryNavigation);
+
+            var touristAttractionModel = await query.FirstOrDefaultAsync(x => x.Id == id);
 
             if (touristAttractionModel == null)
                 return null;

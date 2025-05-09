@@ -31,6 +31,7 @@ namespace HistoryTcheling_Backend.WebAPI.DependencyInjection
             //Repositories
             services.AddScoped<ITouristAttractionRepository, TouristAttractionRepository>();
             services.AddScoped<IUserMedailRepository, UserMedailRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
 
             return services;
         }
@@ -41,6 +42,7 @@ namespace HistoryTcheling_Backend.WebAPI.DependencyInjection
             services.AddScoped<IGetTouristAttractionDetailUseCase, GetTouristAttractionDetailUseCase>();
             services.AddScoped<IAddMedailToUserUseCase, AddMedailToUserUseCase>();
             services.AddScoped<IGetUserMedailsFromCityUseCase, GetUserMedailsFromCityUseCase>();
+            services.AddScoped<IGetCitiesUseCase, GetCitiesUseCase>();
 
             return services;
         }

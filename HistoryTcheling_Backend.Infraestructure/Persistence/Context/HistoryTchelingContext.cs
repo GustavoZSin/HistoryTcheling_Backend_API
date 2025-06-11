@@ -1,11 +1,19 @@
 ﻿using HistoryTcheling_Backend.Infraestructure.Persistence.Configuration;
 using HistoryTcheling_Backend.Infraestructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace HistoryTcheling_Backend.Infraestructure.Persistence.Context;
 
 public partial class HistoryTchelingContext : DbContext
 {
+    private readonly IConfiguration _configuration;
+
+    public HistoryTchelingContext(DbContextOptions<HistoryTchelingContext> options, IConfiguration configuration)
+        : base(options)
+    {
+        _configuration = configuration;
+    }
     public HistoryTchelingContext()
     {
     }
@@ -26,7 +34,13 @@ public partial class HistoryTchelingContext : DbContext
     public virtual DbSet<UserVisitedAttractionModel> UserVisitedAttractions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-MB220JN\\MS_SQLSERVER;Database=history-tcheling;Trusted_Connection=True;TrustServerCertificate=True;");
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

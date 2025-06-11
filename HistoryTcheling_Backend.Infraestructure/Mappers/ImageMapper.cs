@@ -16,9 +16,11 @@ namespace HistoryTcheling_Backend.Infraestructure.Mappers
         {
             string base64String = null;
 
-            if (!string.IsNullOrEmpty(source.FilePath) && File.Exists($"{source.FilePath}\\{source.Name}{source.FileExtension}"))
+            string fullFilePath = $"{source.FilePath}{source.Name}{source.FileExtension}";
+
+            if (!string.IsNullOrEmpty(source.FilePath) && File.Exists(fullFilePath))
             {
-                var fileBytes = File.ReadAllBytes($"{source.FilePath}\\{source.Name}{source.FileExtension}");
+                var fileBytes = File.ReadAllBytes(fullFilePath);
                 base64String = Convert.ToBase64String(fileBytes);
             }
 

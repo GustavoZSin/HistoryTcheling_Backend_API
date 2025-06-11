@@ -27,7 +27,7 @@ public class Program
             app.UseSwaggerUI(); // Exibe a interface Swagger
         }
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseAuthorization();
 

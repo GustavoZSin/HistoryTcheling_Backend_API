@@ -26,7 +26,7 @@ public partial class HistoryTchelingContext : DbContext
     public virtual DbSet<UserVisitedAttractionModel> UserVisitedAttractions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=history-tcheling;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-MB220JN\\MS_SQLSERVER;Database=history-tcheling;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

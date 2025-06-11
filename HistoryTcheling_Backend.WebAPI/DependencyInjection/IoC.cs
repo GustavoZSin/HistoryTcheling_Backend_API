@@ -7,7 +7,6 @@ using HistoryTcheling_Backend.Infraestructure.Mappers;
 using HistoryTcheling_Backend.Infraestructure.Persistence.Context;
 using HistoryTcheling_Backend.Infraestructure.Persistence.Models;
 using HistoryTcheling_Backend.Infraestructure.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace HistoryTcheling_Backend.WebAPI.DependencyInjection
 {
@@ -32,6 +31,7 @@ namespace HistoryTcheling_Backend.WebAPI.DependencyInjection
             services.AddScoped<ITouristAttractionRepository, TouristAttractionRepository>();
             services.AddScoped<IUserMedailRepository, UserMedailRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
@@ -43,6 +43,8 @@ namespace HistoryTcheling_Backend.WebAPI.DependencyInjection
             services.AddScoped<IAddMedailToUserUseCase, AddMedailToUserUseCase>();
             services.AddScoped<IGetUserMedailsFromCityUseCase, GetUserMedailsFromCityUseCase>();
             services.AddScoped<IGetCitiesUseCase, GetCitiesUseCase>();
+            services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+            services.AddScoped<IValidateUserUseCase, ValidateUserUseCase>();
 
             return services;
         }

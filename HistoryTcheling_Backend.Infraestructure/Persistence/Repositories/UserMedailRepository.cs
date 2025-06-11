@@ -29,10 +29,20 @@ namespace HistoryTcheling_Backend.Infraestructure.Persistence.Repositories
                                 .ThenInclude(c => c.IdStateNavigation)
                                     .ThenInclude(s => s.IdCountryNavigation);
 
-            var detailList = await query
+            List<UserVisitedAttractionModel> detailList;
+            if (cityName != null)
+            {
+                detailList = await query
                     .Where(a => a.IdUser == userId
                              && a.IdTouristAttractionNavigation.Address.IdCityNavigation.Name == cityName)
                     .ToListAsync();
+            }
+            else
+            {
+                detailList = await query
+                        .Where(a => a.IdUser == userId)
+                        .ToListAsync();
+            }
 
             List<MedalBadgeDetails> results = new();
 
@@ -47,6 +57,14 @@ namespace HistoryTcheling_Backend.Infraestructure.Persistence.Repositories
 
         public async Task AddMedailToUserAsync(int userId, int touristAttractionId)
         {
+            var query = _context.UserVisitedAttractions
+                .Where(uva => uva.IdUser == userId && uva.IdTouristAttraction == touristAttractionId);
+
+            var result = query.ToList();
+
+            if (result.Count != 0)
+                return;
+
             var newMedail = new UserVisitedAttractionModel
             {
                 IdUser = userId,
